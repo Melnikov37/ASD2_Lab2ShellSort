@@ -15,11 +15,24 @@ namespace ASD2_Lab2
 
         static void Main(string[] args)
         {
-            ShellSort.ReadDate();
+            Console.WriteLine("Тест сортировки(или сортировка отдельного массива)?");
+            if (Console.ReadLine() == "да")
+            {
+                Test();
+            }
+            else
+            {
+                Sort();
+            }
+        }
+
+        static void Sort()
+        {
+            ShellSort.ReadDate("", 0);
             for (int i = 0; i < ShellSort.CountElement; i++)
             {
-                Console.WriteLine("Числа - Array[{1}]{0}", ShellSort.Array[i],i);
-            }           
+                Console.WriteLine("Числа - Array[{1}]{0}", ShellSort.Array[i], i);
+            }
             Console.ReadLine();
             Console.WriteLine("Сортировка:");
             Stopwatch stopwatch = new Stopwatch();
@@ -30,9 +43,25 @@ namespace ASD2_Lab2
             {
                 Console.WriteLine("Числа - Array[{1}]{0}", ShellSort.Array[ShellSort.ArrayId[i]], i);
             }
-            Console.WriteLine("Количество итераций - {0}", ShellSort.iner);
+            Console.WriteLine("Количество итераций - {0}", ShellSort.iter);
+            ShellSort.iter = 0;
             TimeSpan ts = stopwatch.Elapsed;
-            Console.WriteLine("Время выполнения - {0:00}:{1:00}:{2:00}",ts.Minutes,ts.Seconds,ts.Milliseconds);
+            Console.WriteLine("Время выполнения - {0:00}:{1:00}:{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds);
+            Console.ReadLine();
+        }
+
+        static void Test()
+        {
+            int start = 10;
+            int end = 300;
+            int step = 10;
+            int count = (end - start) / step;
+            ShellSort.TestShellSorting(start,end,step);
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine("Результат при {1} = {0}", ShellSort.TestIterNubmer[i], start);
+                start+=step;
+            }
             Console.ReadLine();
         }
     }

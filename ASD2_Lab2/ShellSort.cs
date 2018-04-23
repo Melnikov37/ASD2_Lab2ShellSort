@@ -1,26 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace ASD2_Lab2
 {
     public class ShellSort
     {
-        private int[] _array = new int[1];
-        private int[] _arrayId = new int[1];
+        private int[] _array;
+        private int[] _arrayId;
         private int _countElement = 0;
-        public int iner;
+        private int[] _testIterNubmer;
+        public int iter;
 
         public int[] Array { get => _array; set => _array = value; }
         public int CountElement { get => _countElement; set => _countElement = value; }
         public int[] ArrayId { get => _arrayId; set => _arrayId = value; }
+        public int[] TestIterNubmer { get => _testIterNubmer; set => _testIterNubmer = value; }
 
-        public void ReadDate()
+        public void ReadDate(string value, int countElement)
         {
-            Console.WriteLine("Введите числа которые будут сортироваться(напишите \"rnd\" для случайных чисел):");
-            var value = Console.ReadLine();
-            Console.WriteLine("Введите количество элементов");
-            CountElement = Int32.Parse(Console.ReadLine());
+            if (value == "")
+            {
+                Console.WriteLine("Введите числа которые будут сортироваться(напишите \"rnd\" для случайных чисел):");
+                value = Console.ReadLine();
+            }
+            if (countElement == 0)
+            {
+                Console.WriteLine("Введите количество элементов");
+                CountElement = Int32.Parse(Console.ReadLine());
+            }
+            else
+            {
+                CountElement = countElement;
+            }
+            
             _array = new int[CountElement];
             _arrayId = new int[CountElement];
             do
@@ -31,7 +45,7 @@ namespace ASD2_Lab2
                     Random rnd = new Random();
                     for (int i = 0; i < CountElement; i++)
                     {
-                        Array[i] = rnd.Next(-10000, 10000);
+                        Array[i] = rnd.Next(-1000000, 1000000);
                     }
 
                     break;
@@ -44,6 +58,7 @@ namespace ASD2_Lab2
             {
                 ArrayId[i] = i;
             }
+
         }
 
         public void ShellSorting()
@@ -61,12 +76,25 @@ namespace ASD2_Lab2
                             Array[ArrayId[j]] = Array[ArrayId[j - step]];
                         else
                             break;
-                        iner++;
+                        iter++;
                     }
                     Array[ArrayId[j]] = tmp;
                 }
             }
         }
 
+        public void TestShellSorting(int start, int end, int step)
+        {
+            var elementTestArray = (end - start) / step;
+            _testIterNubmer = new int[elementTestArray];
+            for (int i = 0; i < elementTestArray; i++)
+            {
+                ReadDate("rnd", start);
+                ShellSorting();
+                TestIterNubmer[i] = iter;
+                iter = 0;
+                start += step;
+            }
+        }
     }
 }
