@@ -52,9 +52,9 @@ namespace ASD2_Lab2
 
         static void Test()
         {
-            int start = 10;
-            int end = 300;
-            int step = 10;
+            int start = 2;
+            int end = 11;
+            int step = 1;
             int count = (end - start) / step;
             ShellSort.TestShellSorting(start,end,step);
             for (int i = 0; i < count; i++)
